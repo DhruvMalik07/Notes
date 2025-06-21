@@ -1,4 +1,3 @@
-
 null is used to represent intentional absence of any object value.
 typeof null = object
 
@@ -8,9 +7,14 @@ typeof undefined = undefined
 
 JavaScript is an interpreted, dynamically typed language.
 That means:
-It doesn’t have a compile step like C++ or Java.
+It doesn't have a compile step like C++ or Java.
 Most errors are caught at runtime, during execution.
 
+Hoisting is a JavaScript mechanism where variables and function declarations are moved to the top of their scope (the global scope or function scope) during the compilation phase, before code execution.
+
+var variables are hoisted with undefined, while 'let' and 'const' are hoisted but remain in the Temporal Dead Zone until initialized.
+
+Arrow functions (defined with `let` or `const`) are not hoisted and will throw a `ReferenceError` if called before being declared.
 
 Why Hoisting in JS:- JS processes declarations before execution
 Major Benefit: we can call functions early, even before its defination 
@@ -84,14 +88,14 @@ When it finishes → it is popped off the stack.
 The call stack handles synchronous code — one at a time.
 
 event loop - middleman
-Constantly checks: “Is the call stack empty? If yes, let’s run queued tasks.”
-When asynchronous code (e.g., setTimeout, promises) is encountered, it’s offloaded to the callback queue once its execution context is ready. The event loop continuously checks if the call stack is empty and moves tasks from the callback queue to the stack when it’s empty, allowing asynchronous code to run without blocking the main thread.
+Constantly checks: "Is the call stack empty? If yes, let's run queued tasks."
+When asynchronous code (e.g., setTimeout, promises) is encountered, it's offloaded to the callback queue once its execution context is ready. The event loop continuously checks if the call stack is empty and moves tasks from the callback queue to the stack when it's empty, allowing asynchronous code to run without blocking the main thread.
 
 
 
 Debouncing and throttling are techniques used to optimize performance
 
-Throttling is a technique used to limit the number of times a function can be executed in a given time frame. It’s extremely useful when dealing with performance-heavy operations, such as resizing the window or scrolling events, where repeated triggers can lead to performance issues.
+Throttling is a technique used to limit the number of times a function can be executed in a given time frame. It's extremely useful when dealing with performance-heavy operations, such as resizing the window or scrolling events, where repeated triggers can lead to performance issues.
 
 Debouncing ensures that a function is only executed after a certain amount of idle time.
 Debouncing in JavaScript can be defined as the technique that is used to limit the number of times a function gets executed. Debouncing is useful when the event is frequently being triggered in a short interval of time like typing, scrolling, and resizing.
