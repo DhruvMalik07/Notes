@@ -1,0 +1,142 @@
+
+null is used to represent intentional absence of any object value.
+typeof null = object
+
+undefined means a variable has been declared but has not been assigned a value.(unintentional)
+typeof undefined = undefined
+
+
+JavaScript is an interpreted, dynamically typed language.
+That means:
+It doesn’t have a compile step like C++ or Java.
+Most errors are caught at runtime, during execution.
+
+
+Why Hoisting in JS:- JS processes declarations before execution
+Major Benefit: we can call functions early, even before its defination 
+
+The Temporal Dead Zone is the time between:
+When a variable is hoisted, and
+When it is actually declared in the code.
+During this time, accessing the variable will throw a ReferenceError.
+
+
+A closure is when a function remembers and accesses variables from its outer scope, even after that outer function has finished executing.
+ex: 
+    function foo() { 
+        let b = 1; 
+        function inner() { 
+           return b; 
+        } 
+        return inner; 
+    }    
+
+Compiled language: Translates entire code to machine code before running. ex: c++, java
+interpreted language : Translates and runs code line-by-line at runtime. ex JS, Python
+
+Event Bubbling: Event goes from child to parent
+
+| Operator | Name            | Checks           | Type Conversion? | Example               |
+| -------- | --------------- | ---------------- | ---------------- | --------------------- |
+| `==`     | Loose equality  |   Value only     | ✅ Yes            | `5 == '5'` → `true`   |
+| `===`    | Strict equality |   Value + Type   | ❌ No             | `5 === '5'` → `false` |
+
+
+
+| Type             | What It Does                                                                      |
+| ---------------- | ----------------------------------------------------------------------------------|
+|   Shallow Copy   | Copies top-level values, but nested objects/arrays still refer to the same memory |
+|   Deep Copy      | Copies everything, including nested objects, creating completely new memory       |
+
+
+const original = {
+  name: "John",
+  address: { city: "Delhi" }
+};
+
+const shallow = { ...original }; // OR Object.assign({}, original)
+
+shallow.address.city = "Mumbai";
+
+console.log(original.address.city); // ❗ "Mumbai" — changed in both!
+// if changes are made in name in shallow, it won't affect name in original
+
+
+
+const original = {
+  name: "John",
+  address: { city: "Delhi" }
+};
+
+const deep = JSON.parse(JSON.stringify(original));
+
+deep.address.city = "Mumbai";
+
+console.log(original.address.city); // ✅ "Delhi" — original stays unchanged
+
+
+JavaScript is single-threaded, meaning it can only do one thing at a time.
+Yet it can handle things asynchronously ,using event loop and call stack
+
+call stack - execution manager
+When a function is called → it goes on top of the stack.
+When it finishes → it is popped off the stack.
+The call stack handles synchronous code — one at a time.
+
+event loop - middleman
+Constantly checks: “Is the call stack empty? If yes, let’s run queued tasks.”
+When asynchronous code (e.g., setTimeout, promises) is encountered, it’s offloaded to the callback queue once its execution context is ready. The event loop continuously checks if the call stack is empty and moves tasks from the callback queue to the stack when it’s empty, allowing asynchronous code to run without blocking the main thread.
+
+
+
+Debouncing and throttling are techniques used to optimize performance
+
+Throttling is a technique used to limit the number of times a function can be executed in a given time frame. It’s extremely useful when dealing with performance-heavy operations, such as resizing the window or scrolling events, where repeated triggers can lead to performance issues.
+
+Debouncing ensures that a function is only executed after a certain amount of idle time.
+Debouncing in JavaScript can be defined as the technique that is used to limit the number of times a function gets executed. Debouncing is useful when the event is frequently being triggered in a short interval of time like typing, scrolling, and resizing.
+
+ex: Debouncing : wait until things stops
+Imagine you're typing into a search box on Amazon.
+It only sends a search after you stop typing for 500ms.
+This avoids making too many API calls on every keystroke.
+
+Throttling: limtis how oftern something happens
+if you scroll like crazy, still scrolling function runs only 5000ms(ex number), no matter how much you scroll
+
+porps: similar to function parameters | Immutable- read only
+state: similar to variables           | Mutable  - both read & write
+
+
+Diffing Algorithm in React JS differentiates the updated and previous DOM of the application.
+Virtual DOM only difference in the ability to write the screen like the real DOM, in fact, a new virtual DOM is created after every re-render.
+
+In general, browsers are not capable of reading JSX and only can read pure JavaScript. The web browsers read JSX with the help of a transpiler. Transpilers are used to convert JSX into JavaScript. The transpiler used is called Babel.
+
+key- unique identifier in React
+helping to track which items in a list have changed, been updated, or removed. It is particularly useful when dynamically creating components or when users modify the list.
+
+without key : react rerender whole list
+with proper key : only updates what changed
+
+| Feature                  | JavaScript                       | TypeScript                              |
+|--------------------------|----------------------------------|------------------------------------------|
+| Typing                   | Dynamic (types known at runtime) | Static (types checked at compile time)   |
+| Compilation              | Interpreted by browsers          | Compiled to JavaScript                   |
+| Errors                   | Caught at runtime                | Caught at compile time                   |
+| Tooling/Intellisense     | Limited                          | Powerful autocompletion and type hints   |
+| Learning Curve           | Easier for beginners             | Slightly more complex (you learn types)  |
+| Scalability              | Harder in large codebases        | Ideal for large-scale apps               |
+
+
+| Use JavaScript if...                             | Use TypeScript if...                              |
+| ------------------------------------------------ | ------------------------------------------------- |
+| It's a small project or quick prototype          | You're working on a large codebase                |
+| You want to learn web dev quickly                | You want better code safety and tooling           |
+| You're writing basic scripts or dynamic behavior | You're using frameworks like Angular, Next.js     |
+| You're just learning the basics                  | You're working in a team                          |
+
+
+
+
+

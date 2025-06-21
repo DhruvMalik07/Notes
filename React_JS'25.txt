@@ -1,0 +1,157 @@
+REACT -> JavaScript Library
+npm -> will download package in device and use it from there
+npx -> will not download package in device, rather it use package for our project and then returns it back(kind of loan)
+
+
+jsx -> syntax extension , which enables us to write html in .js file (react feature)
+
+In JavaScript ES6 modules, there are two main types of exports: default exports and named exports.
+The way you import a module depends on how it was exported.
+Explanation:
+Default Export: This is the main export of a module, and it doesn't require curly braces when importing.
+Named Export: This is any additional export from the module, and it must be imported using curly braces.
+
+If we import, named export without curly braces, then default export will imported.
+
+Que Why do multiple JSX tags need to be wrapped ? 
+Ans JSX looks like HTML, but under the hood it is transformed into plain JavaScript objects.
+    You can’t return two objects from a function without wrapping them into an array. 
+    This explains why you also can’t return two JSX tags without wrapping them into another single tag or a Fragment.
+   
+Props are the information that you pass to a JSX tag.
+
+JavaScript supports closures which means an inner function (e.g. handleClick) has access to variables and functions defined in an outer function (e.g. Board). The handleClick function can read the squares state and call the setSquares method because they are both defined inside of the Board function.
+
+agar ek function ke ander dusra function hai toh andar wala function bahar wale ki states padh sakta hai 
+
+| Code                             | Behavior                                 |
+| -------------------------------- | -----------------------------------------|
+| `onClick={handleClick(0)}`       | Calls the function immediately on render |
+| `onClick={() => handleClick(0)}` | Calls the function when clicked          |
+
+
+React state must not be mutated directly. So .slice() is used to create a copy of the array before modifying it.
+Important for Undo, Redo commands
+
+React.StrictMode is used during development to help find bugs and improve the quality of your code.
+
+It does things like:
+Warn about unsafe lifecycle methods.
+Check for unexpected side effects.
+Detect legacy string ref usage.
+Double-invokes some functions in dev mode (like useEffect) to help catch bugs early.
+
+Note: StrictMode has no effect in the production build — it’s only for development debugging.
+
+JSX- JS + HTML
+
+React components need to return a single JSX element. 
+so use  Fragments (<> and </>) to wrap code.
+
+
+ReactJS uses one-way data-binding, this means child components are not able to update the data that is coming from the parent component. It is easy to debug and less prone to errors.
+
+Pure component: only re-renders if the props or state it receives changes.
+
+Mounting: the component is mounted on the DOM and rendered for the first time on the webpage.
+
+ReactJS Refs are used to access and modify the DOM elements in the React Application.
+They are used in cases where we want to change the value of a child component, without making use of props and state.
+
+Hooks ->  function that allows functionl components in React to manage state, handle effects and some other React feature without needing class components
+
+useEffect(function, dependency)
+'function' will run when there is change in value of 'dependency' array
+
+Prop drilling means passing data (props) from a top-level component through many layers of components—even if some of those middle components don't need it, just to reach a deeply nested component.
+Solution: React Context API, Redux
+
+React Redux - state management tool (centralized control and easier debugging)
+makes it easier to pass these states from one component to another irrespective of their position in the component tree and hence prevents the complexity of the application.
+
+Axio - popular library, used to send asynchronous HTTP requests to REST endpoints. This library is very useful to perform CRUD operations.
+
+Reconciliation is the process React uses to figure out how to efficiently update the DOM (Document Object Model) when changes occur in the UI. React's goal is to update the page as efficiently as possible, without unnecessary re-rendering or slow performance.
+
+How Reconciliation Works:
+You change state or props.
+React creates a new virtual DOM tree from your updated component.
+React compares this new virtual DOM with the previous one (diffing).
+React then updates only the changed parts in the real DOM.
+
+
+
+Optimizing React performance can be achieved using:
+
+React.memo() for preventing unnecessary re-renders.
+Lazy loading components with React.lazy() and Suspense.
+Using useMemo() and useCallback() hooks to memoize values and functions.
+Avoiding unnecessary state updates.
+
+
+Server-side rendering (SSR) is the process of rendering a React application on the server and sending the fully rendered HTML to the client. This improves the initial page load performance and SEO.
+
+In CSR (Client-Side Rendering), the browser loads a basic HTML, then JavaScript takes over to render the content on the page.
+How it works:
+You load the website → browser gets a blank HTML with a <div id="root"></div>
+React fetches data and renders everything in the browser
+
+| Feature            | CSR (Client-Side)                   | SSR (Server-Side)              |
+| ------------------ | ----------------------------------- | ------------------------------ |
+| Initial load speed | Slower (blank page + JS)            | Faster (HTML has content)      |
+| SEO friendliness   | Poor (content loads later)          | Great (content is preloaded)   |
+| Performance        | Fast after first load               | Can be slower on every request |
+| Complexity         | Easier to set up (Create React App) | Needs server (Next.js, Nuxt)   |
+| Best for           | Apps (dashboards, SPA)              | Blogs, news, SEO-heavy sites   |
+
+| Use CSR if...                              | Use SSR if...                             |
+| ------------------------------------------ | ----------------------------------------- |
+| SEO doesn’t matter much                    | You care about SEO                        |
+| Your app is interactive-heavy (e.g. Gmail) | Content must be visible immediately       |
+| You want a pure frontend app               | You want better performance on first load |
+
+
+SEO is the practice of optimizing your website so that it appears higher in search engine results (like Google). For this, Google's bots (called crawlers) need to read your website's HTML content.
+
+In CSR:
+The real content is rendered later using JavaScript (by React, Vue, etc.)
+Crawlers might not wait for the JavaScript to load or might not run it at all
+So, search engines may miss your content, which leads to poor SEO
+
+In SSR:
+The server sends fully built HTML to the browser right away.
+Crawlers immediately see all the content
+➡️ This makes your site SEO-friendly and easier to index
+
+
+Lazy loading is a performance optimization technique
+where content, code, or components are loaded only when needed,instead of loading everything at once when the app starts. It reduces intial load time.
+
+
+useRef: react Hook that returns a mutable reference objecct (ref) that persists across renders.
+Unlike state variables, updating a ref does not trigger a component re-render.
+Access DOM elements directly
+Store values between renders without causing re-render
+
+
+WebSockets in Express.js and Node.js enable real-time, two-way communication between a website and its server. This allows for features like live chat, instant updates, and interactive experiences.
+
+
+| Feature             | Google Auth                         | JWT Auth                                |
+| ------------------- | ----------------------------------- | --------------------------------------- |
+| Who verifies user?  | Google (external)                   | Your backend                            |
+| Token type          | ID token (JWT from Google)          | Access token (JWT from your server)     |
+| Backend involvement | Minimal (verifying token)           | Full (login, validation, token signing) |
+| Implementation ease | Easier with Firebase/Auth libraries | Requires building login & token logic   |
+| Security            | Very secure (backed by Google)      | Secure, but up to your implementation   |
+| Use case            | Social logins                       | Email/password systems, APIs            |
+
+
+| Use Google Auth if...               | Use JWT Auth if...                            |
+| ----------------------------------- | --------------------------------------------- |
+| You want fast, secure login         | You need full control over login system       |
+| You want users to log in with Gmail | You're managing your own auth (e.g. users DB) |
+| You're using Firebase               | You're using a Node/Express backend           |
+
+
+
