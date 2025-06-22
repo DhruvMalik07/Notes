@@ -51,6 +51,21 @@ so use  Fragments (<> and </>) to wrap code.
 
 ReactJS uses one-way data-binding, this means child components are not able to update the data that is coming from the parent component. It is easy to debug and less prone to errors.
 
+porps: similar to function parameters | Immutable- read only
+state: similar to variables           | Mutable  - both read & write
+
+
+Diffing Algorithm in React JS differentiates the updated and previous DOM of the application.
+Virtual DOM only difference in the ability to write the screen like the real DOM, in fact, a new virtual DOM is created after every re-render.
+
+In general, browsers are not capable of reading JSX and only can read pure JavaScript. The web browsers read JSX with the help of a transpiler. Transpilers are used to convert JSX into JavaScript. The transpiler used is called Babel.
+
+key- unique identifier in React
+helping to track which items in a list have changed, been updated, or removed. It is particularly useful when dynamically creating components or when users modify the list.
+
+without key : react rerender whole list
+with proper key : only updates what changed
+
 Pure component: only re-renders if the props or state it receives changes.
 
 Mounting: the component is mounted on the DOM and rendered for the first time on the webpage.

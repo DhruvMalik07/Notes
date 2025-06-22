@@ -187,4 +187,111 @@ Debouncing and throttling are techniques used to optimize performance.
 | It's a small project or quick prototype | You're working on a large codebase |
 | You want to learn web dev quickly | You want better code safety and tooling |
 | You're writing basic scripts or dynamic behavior | You're using frameworks like Angular, Next.js |
-| You're just learning the basics | You're working in a team | 
+| You're just learning the basics | You're working in a team |
+
+## Additional JavaScript Concepts & Examples
+
+### Object & Array Methods
+- **Object.keys(obj)**: Returns an array of an object's enumerable property names.
+  ```js
+  const user = { name: "Alice", age: 25, city: "Delhi" };
+  console.log(Object.keys(user)); // ["name", "age", "city"]
+  ```
+- **JSON.parse()**: Converts a JSON string into a JavaScript object.
+- **Array holes**: Assigning to a high index increases the array's length, leaving holes.
+  ```js
+  let arr = [1, 2, 3];
+  arr[10] = 4;
+  console.log(arr.length); // 11
+  ```
+- **Array methods**:
+  - `.map()`: Iterates over the array's initial length, ignoring elements added during iteration.
+  - `.forEach()`: Does not return a new array and does not modify the original array.
+
+### Type Coercion & Comparisons
+- **Type coercion**: `==` converts operands to a common type.
+  ```js
+  let x = false, y = "0", z = 0;
+  console.log(x == y); // true
+  console.log(x == z); // true
+  ```
+- **Truthy/falsy**: Empty arrays (`[]`) are truthy.
+  ```js
+  let x = [];
+  console.log(Boolean(x)); // true
+  ```
+- **String/number operations**:
+  ```js
+  let x = "5", y = 2;
+  console.log(x + y); // "52" (string)
+  console.log(x - y); // 3 (number)
+  ```
+- **Incrementing strings**: Strings are coerced to numbers for arithmetic.
+  ```js
+  let y = "1";
+  console.log(++y); // 2
+  ```
+
+### Numbers & Precision
+- **Floating point precision**:
+  ```js
+  let x = 0.1 + 0.2, y = 0.3;
+  console.log(x == y); // false
+  // 0.1 + 0.2 === 0.30000000000000004
+  ```
+
+### Spread Operator & Object Overwrite
+- **Spread operator**: Later properties overwrite earlier ones.
+  ```js
+  let x = { a: 1, b: 2 }, y = { b: 3 };
+  let z = { ...x, ...y };
+  console.log(z); // { a: 1, b: 3 }
+  ```
+
+### Arrow Functions & `this`
+- **Arrow functions** do not have their own `this`; they inherit from the parent scope.
+  ```js
+  let a = () => { console.log(this); };
+  a(); // global object (Window in browser, global in Node.js)
+  ```
+  - In object methods, arrow functions do not bind `this` to the object:
+    ```js
+    let x = {
+      y: "z",
+      print: () => this.y === "z"
+    };
+    console.log(x.print()); // false
+    ```
+
+### Array + Array
+- **Adding arrays**: Using `+` with arrays converts them to strings.
+  ```js
+  let x = [], y = [];
+  let z = x + y;
+  console.log(typeof z); // "string"
+  ```
+
+### Logical NOT with Strings
+- **Non-empty strings are truthy**:
+  ```js
+  let x = "false";
+  let y = !x;
+  console.log(y); // false
+  ```
+
+### setTimeout and Event Loop
+- **setTimeout with 0ms**: Executes after synchronous code.
+  ```js
+  setTimeout(() => { console.log(1); }, 0);
+  console.log(2);
+  // Output: 2, then 1
+  ```
+
+### Miscellaneous
+- **Arrays are objects**:
+  ```js
+  let x = [1, 2, 3];
+  console.log(typeof x); // "object"
+  ```
+- **slice()**: Creates a shallow copy of an array.
+- **sort()**: Sorts array elements as strings, in place. 
