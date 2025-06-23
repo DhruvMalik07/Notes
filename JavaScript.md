@@ -19,7 +19,7 @@ JavaScript is an **interpreted, dynamically typed language**. That means:
 Hoisting is a JavaScript mechanism where variables and function declarations are moved to the top of their scope (the global scope or function scope) during the compilation phase, before code execution.
 
 - `var` is hoisted and initialized with `undefined`.
-- `let` and `const` are hoisted but not initialized.
+- `let` and `const` are hoisted but not initialized (Temporal Dead Zone).
 - **Arrow functions** (defined with `let` or `const`) are not hoisted and will throw a `ReferenceError` if called before being declared.
 
 **Why Hoisting in JS**: JS processes declarations before execution.
@@ -138,37 +138,6 @@ Debouncing and throttling are techniques used to optimize performance.
 - **Throttling**: Limits how often something happens
   - If you scroll like crazy, still scrolling function runs only every 500ms (example), no matter how much you scroll
 
-## React Concepts
-
-### Props vs State
-
-| Aspect | Props | State |
-|--------|-------|-------|
-| Similar to | Function parameters | Variables |
-| Mutability | Immutable - read only | Mutable - both read & write |
-
-### Virtual DOM and Diffing
-
-- **Diffing Algorithm** in React JS differentiates the updated and previous DOM of the application.
-- **Virtual DOM** only differs in the ability to write the screen like the real DOM; in fact, a new virtual DOM is created after every re-render.
-
-### JSX and Transpilation
-
-- In general, browsers are not capable of reading JSX and only can read pure JavaScript.
-- The web browsers read JSX with the help of a transpiler.
-- Transpilers are used to convert JSX into JavaScript.
-- The transpiler used is called **Babel**.
-
-### Keys in React
-
-- **Key**: Unique identifier in React
-- Helps track which items in a list have changed, been updated, or removed.
-- Particularly useful when dynamically creating components or when users modify the list.
-
-**Behavior:**
-- **Without key**: React re-renders whole list
-- **With proper key**: Only updates what changed
-
 ## JavaScript vs TypeScript
 
 | Feature | JavaScript | TypeScript |
@@ -189,109 +158,138 @@ Debouncing and throttling are techniques used to optimize performance.
 | You're writing basic scripts or dynamic behavior | You're using frameworks like Angular, Next.js |
 | You're just learning the basics | You're working in a team |
 
-## Additional JavaScript Concepts & Examples
+## Input/Output (IO) Questions and Examples
 
-### Object & Array Methods
-- **Object.keys(obj)**: Returns an array of an object's enumerable property names.
-  ```js
-  const user = { name: "Alice", age: 25, city: "Delhi" };
-  console.log(Object.keys(user)); // ["name", "age", "city"]
-  ```
-- **JSON.parse()**: Converts a JSON string into a JavaScript object.
-- **Array holes**: Assigning to a high index increases the array's length, leaving holes.
-  ```js
-  let arr = [1, 2, 3];
-  arr[10] = 4;
-  console.log(arr.length); // 11
-  ```
-- **Array methods**:
-  - `.map()`: Iterates over the array's initial length, ignoring elements added during iteration.
-  - `.forEach()`: Does not return a new array and does not modify the original array.
+### Object.keys()
+Object.keys() method in JavaScript is used to retrieve an array of the enumerable property names of an object.
+```js
+const user = {
+  name: "Alice",
+  age: 25,
+  city: "Delhi"
+};
+console.log(Object.keys(user)); // ["name", "age", "city"]
+```
 
-### Type Coercion & Comparisons
-- **Type coercion**: `==` converts operands to a common type.
-  ```js
-  let x = false, y = "0", z = 0;
-  console.log(x == y); // true
-  console.log(x == z); // true
-  ```
-- **Truthy/falsy**: Empty arrays (`[]`) are truthy.
-  ```js
-  let x = [];
-  console.log(Boolean(x)); // true
-  ```
-- **String/number operations**:
-  ```js
-  let x = "5", y = 2;
-  console.log(x + y); // "52" (string)
-  console.log(x - y); // 3 (number)
-  ```
-- **Incrementing strings**: Strings are coerced to numbers for arithmetic.
-  ```js
-  let y = "1";
-  console.log(++y); // 2
-  ```
+### JSON.parse()
+JSON.parse() method is used to convert a JSON string into a JavaScript object.
 
-### Numbers & Precision
-- **Floating point precision**:
-  ```js
-  let x = 0.1 + 0.2, y = 0.3;
-  console.log(x == y); // false
-  // 0.1 + 0.2 === 0.30000000000000004
-  ```
+### Floating Point Precision
+```js
+let x = 0.1 + 0.2;
+let y = 0.3;
+console.log(x == y); //false
+```
+JavaScript uses the IEEE 754 standard for representing numbers, which can't precisely represent some decimal values like 0.1. As a result, calculations like 0.1 + 0.2 yield slightly inaccurate results (0.30000000000000004 instead of 0.3). Therefore, comparisons like x == y may return false due to these small rounding errors.
 
-### Spread Operator & Object Overwrite
-- **Spread operator**: Later properties overwrite earlier ones.
-  ```js
-  let x = { a: 1, b: 2 }, y = { b: 3 };
-  let z = { ...x, ...y };
-  console.log(z); // { a: 1, b: 3 }
-  ```
+### Type Coercion
+When you use the == operator to compare values of different types, the operands will be converted to a common type before the comparison is made. This process is called type coercion.
+```js
+let x = false;
+let y = "0";
+let z = 0;
+console.log(x == y); //true
+console.log(x == z); //true
+```
 
-### Arrow Functions & `this`
-- **Arrow functions** do not have their own `this`; they inherit from the parent scope.
-  ```js
-  let a = () => { console.log(this); };
-  a(); // global object (Window in browser, global in Node.js)
-  ```
-  - In object methods, arrow functions do not bind `this` to the object:
-    ```js
-    let x = {
-      y: "z",
-      print: () => this.y === "z"
-    };
-    console.log(x.print()); // false
-    ```
+### Truthy/Falsy Values
+```js
+let x = [];
+console.log(Boolean(x)); // true
+```
+In JS, an empty array [] is a truthy value when coerced to a Boolean.
+
+### String and Number Operations
+```js
+let x = "5";
+let y = 2;
+console.log(x + y); //52 string
+console.log(x - y); //3  number
+```
++ => string concatenation
+- => string to number
+
+### this in Arrow Function
+```js
+let a = () => {
+  console.log(this);
+};
+a();
+```
+Output: The code will output the global object (Window in a browser, or global in Node.js).
+
+The behavior of this keyword inside a function depends on how the function is called. When a function is called with no explicit receiver (i.e., no object to the left of the . when calling the function), this will refer to the global object (Window in a browser, or global in Node.js).
+
+In the given code, a is an arrow function that has no explicit receiver when it is called. Therefore, when a() is executed, this will refer to the global object, and the console.log statement inside the function will output the global object.
 
 ### Array + Array
-- **Adding arrays**: Using `+` with arrays converts them to strings.
-  ```js
-  let x = [], y = [];
-  let z = x + y;
-  console.log(typeof z); // "string"
-  ```
+```js
+let x = [];
+let y = [];
+let z = x + y;
+console.log(typeof z); //string
+```
+In JS, when you use the + operator with two arrays, or an array and any other object, both operands will be converted to strings before concatenation occurs.
 
-### Logical NOT with Strings
-- **Non-empty strings are truthy**:
-  ```js
-  let x = "false";
-  let y = !x;
-  console.log(y); // false
-  ```
+### Logical NOT on String
+```js
+let x = "false";
+let y = !x;
+console.log(y); //false
+```
+In this code, x is a string containing the value "false". When you use the logical NOT operator (!) with a non-Boolean value, JavaScript will first convert the value to a Boolean and then negate it. Since "false" is a non-empty string, it is considered a truthy value when converted to Boolean, so !x will be the same as !true, which is false.
 
-### setTimeout and Event Loop
-- **setTimeout with 0ms**: Executes after synchronous code.
-  ```js
-  setTimeout(() => { console.log(1); }, 0);
-  console.log(2);
-  // Output: 2, then 1
-  ```
+### Incrementing String
+```js
+let y = "1";
+console.log(++y) //2
+```
+Since y is a string, it will be first converted to a number before it is incremented. The string "1" can be converted to the number 1, so ++y will also increment the value of y to 2.
 
-### Miscellaneous
-- **Arrays are objects**:
-  ```js
-  let x = [1, 2, 3];
-  console.log(typeof x); // "object"
-  ```
-- **slice()**: Creates a shallow copy of an array.
-- **sort()**: Sorts array elements as strings, in place. 
+### Arrays are Objects
+```js
+let x = [1, 2, 3];
+console.log(typeof x);
+```
+
+### Spread Operator and Object Overwrite
+```js
+let x = { a: 1, b: 2 };
+let y = { b: 3 };
+let z = { ...x, ...y };
+console.log(z);
+```
+In this code, two objects x and y are defined. x contains properties a and b, while y contains property b. Then, the spread operator ... is used to create a new object z that contains all of the properties from x and y.
+When there are conflicting property names, as in this case with the property b, the value from the later object (in this case, y) will overwrite the value from the earlier object (x).
+Therefore, when z is logged to the console, it will output { a: 1, b: 3 }.
+
+### .map() Working in JS
+```js
+let x = [1, 2, 3];
+let y = x.map((num) => {
+  x.push(num + 3);
+  return num + 1;
+});
+console.log(y);
+```
+In the code, an array x = [1, 2, 3] is mapped with a callback that returns num + 1 and also pushes num + 3 into x. Despite x being modified during the mapping, .map() only iterates over the array's initial length — 3 elements. This is because .map() determines its iteration count before execution begins.
+
+As a result:
+y becomes [2, 3, 4] — each original element incremented by 1.
+x becomes [1, 2, 3, 4, 5, 6] — new elements added during iteration.
+.map() ignores elements added after the loop starts.
+
+### Array Holes
+```js
+let arr = [1, 2, 3];
+arr[10] = 4;
+console.log(arr.length);
+// 11
+```
+
+### forEach()
+forEach(): It does not return a new array and does not modify the original array. It's commonly used for iteration and performing actions on each array element.
+```js
+const arr = [1, 2, 3];
+arr.forEach((num) => num * 2);
+``` 
