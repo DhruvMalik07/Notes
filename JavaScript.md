@@ -292,4 +292,36 @@ forEach(): It does not return a new array and does not modify the original array
 ```js
 const arr = [1, 2, 3];
 arr.forEach((num) => num * 2);
-``` 
+console.log(arr);
+```
+O/P: [ 1, 2, 3 ]
+
+### Arrow Function and this in Object
+```js
+let x = {
+  y: "z",
+  print: () => {
+    return this.y === "z";
+  },
+};
+console.log(x.print());
+```
+The print method uses an arrow function, which means that this refers to the global object, not the x object that print is a property of. Therefore, this.y is undefined, and the expression this.y === "z" evaluates to false.
+
+### setTimeout and Event Loop
+```js
+setTimeout(() => {
+  console.log(1);
+}, 0);
+console.log(2);
+//2
+//1
+```
+The setTimeout function is called with an arrow function as its first argument and a delay of 0 milliseconds as its second argument. This means that the arrow function will be executed as soon as possible, but not necessarily immediately. The console.log method is called with argument 2, which outputs the value 2 to the console. Since the delay of the setTimeout function is 0, the arrow function is placed in the event loop and will be executed after the current synchronous code has finished executing. The console.log method inside the arrow function is executed, which outputs the value 1 to the console. Therefore, the final output of the code is 2 followed by 1.
+
+### slice() method
+The slice() method is used to create a shallow copy of the array x.
+
+### sort() method
+The sort() method sorts the elements of an array in place and sorts the elements as strings.
+
